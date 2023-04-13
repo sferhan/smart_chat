@@ -29,6 +29,7 @@ jobs:
       
       - name: Create requirements.txt
         run: pipenv requirements
+        working-directory: ./smart_chat_backend
       
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
@@ -40,4 +41,4 @@ jobs:
         uses: google-github-actions/deploy-appengine@v1
         with:
           project_id: smart-chat-383601
-          working_directory: ./smart_chat_frontend
+          working-directory: ./smart_chat_backend
