@@ -31,6 +31,10 @@ jobs:
         run: pipenv requirements
         working-directory: ./smart_chat_backend
       
+      - name: Log requirements.txt
+        run: cat requirements.txt
+        working-directory: ./smart_chat_backend
+      
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v1'
