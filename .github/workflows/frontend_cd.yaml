@@ -1,4 +1,4 @@
-name: Deploy to App Engine
+name: Deploy Frontend to App Engine
 
 on:
   push:

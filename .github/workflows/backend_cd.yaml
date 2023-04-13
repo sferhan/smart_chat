@@ -1,0 +1,43 @@
+name: Deploy Backend to App Engine
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    # Add "id-token" with the intended permissions.
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Python Version
+        run: python --version
+      
+      - name: Install pipenv
+        run: pip install pipenv
+      
+      - name: Create requirements.txt
+        run: pipenv requirements
+      
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: ${{secrets.GCP_SA_KEY}}
+
+      - name: Deploy to App Engine
+        uses: google-github-actions/deploy-appengine@v1
+        with:
+          project_id: smart-chat-383601
+          working_directory: ./smart_chat_frontend
