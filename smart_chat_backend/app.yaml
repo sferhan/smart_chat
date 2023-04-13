@@ -6,7 +6,7 @@ entrypoint: gunicorn -b :$PORT smart_chat_backend.wsgi:application
 
 env_variables:
   # This setting is used in settings.py to configure your ALLOWED_HOSTS
-  APPENGINE_URL: backend-dot-vivid-ocean-377202.uw.r.appspot.com
+  APPENGINE_URL: backend-dot-smart-chat-383601.wl.r.appspot.com
 
 handlers:
 - url: /.*
