@@ -41,6 +41,3 @@ jobs:
         uses: google-github-actions/deploy-appengine@main
         with:
           project_id: smart-chat
-          service: smart-chat-frontend
-          config: ./app.yaml
-          source: ./build
