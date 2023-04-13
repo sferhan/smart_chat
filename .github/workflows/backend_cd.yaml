@@ -28,7 +28,7 @@ jobs:
         run: pip install pipenv
       
       - name: Create requirements.txt
-        run: pipenv requirements
+        run: pipenv requirements > requirements.txt
         working-directory: ./smart_chat_backend
       
       - name: Log requirements.txt
