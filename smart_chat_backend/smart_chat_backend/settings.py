@@ -34,14 +34,13 @@ DEBUG = True
 env = environ.Env(DEBUG=(bool, False))
 env_file = os.path.join(BASE_DIR, ".env")
 env.read_env(env_file)
-print(f"\n\n\n{env}\n\n\n")
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://backend-dot-vivid-ocean-377202.uw.r.appspot.com",
     "https://vivid-ocean-377202.uw.r.appspot.com"
 ]
-CORS_ORIGIN_WHITELIST = ("http://localhost:3000", "https://backend-dot-vivid-ocean-377202.uw.r.appspot.com", "https://vivid-ocean-377202.uw.r.appspot.com")
+CORS_ORIGIN_WHITELIST = ("http://localhost:3000", "https://backend-dot-smart-chat-383601.wl.r.appspot.com", "https://smart-chat-383601.wl.r.appspot.com")
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
