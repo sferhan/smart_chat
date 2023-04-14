@@ -33,14 +33,33 @@ DEBUG = True
 
 env = environ.Env(DEBUG=(bool, False))
 env_file = os.path.join(BASE_DIR, ".env")
-env.read_env(env_file)
+
+if os.path.isfile(env_file):
+    # Use a local secret file, if provided
+    env.read_env(env_file)
+elif os.environ.get("GOOGLE_CLOUD_PROJECT", None):
+    # Pull secrets from Secret Manager
+    project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
+
+    client = secretmanager.SecretManagerServiceClient()
+    settings_name = os.environ.get("SETTINGS_NAME", "django_settings")
+    name = f"projects/{project_id}/secrets/{settings_name}/versions/latest"
+    payload = client.access_secret_version(name=name).payload.data.decode("UTF-8")
+    env.read_env(io.StringIO(payload))
+else:
+    raise Exception("No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found.")
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://backend-dot-vivid-ocean-377202.uw.r.appspot.com",
-    "https://vivid-ocean-377202.uw.r.appspot.com"
+    "https://backend-dot-smart-chat-383601.wl.r.appspot.com",
+    "https://smart-chat-383601.wl.r.appspot.com"
 ]
-CORS_ORIGIN_WHITELIST = ("http://localhost:3000", "https://backend-dot-smart-chat-383601.wl.r.appspot.com", "https://smart-chat-383601.wl.r.appspot.com")
+CORS_ORIGIN_WHITELIST = (
+    "http://localhost:3000",
+    "https://backend-dot-smart-chat-383601.wl.r.appspot.com",
+    "https://smart-chat-383601.wl.r.appspot.com"
+)
+
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
@@ -95,19 +114,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'smart_chat_backend.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# DATABASE_URL="postgres://postgres:Abcd0000@//cloudsql/vivid-ocean-377202:us-central1:cloud-computing-course-db/smart_chat_database"
 
 DATABASES = {
     'default': env.db()
