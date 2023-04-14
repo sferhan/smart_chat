@@ -18,6 +18,7 @@ from urllib.parse import urlparse
 import environ
 from corsheaders.defaults import default_headers
 # from google.oauth2 import service_account
+from google.cloud import secretmanager
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
