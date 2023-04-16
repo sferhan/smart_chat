@@ -4,7 +4,7 @@ import logging
 LOG = logging.getLogger(__name__)
 
 
-class StudentManagementSystemConfig(AppConfig):
+class SmartChatSystemConfig(AppConfig):
     name = 'smart_chat_backend'
     label = 'smart_chat_backend'
 

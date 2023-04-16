@@ -23,4 +23,8 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('hello', hello),
     path('', include(router.urls)),
+    path('auth/', include('dj_rest_auth.urls')),
+    path('auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('conversations/', include('chat.urls')),
+    path('users/', include('users.urls'))
 ]

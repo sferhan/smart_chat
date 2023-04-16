@@ -14,6 +14,11 @@ gunicorn = "*"
 django-environ = "==0.9.0"
 psycopg2 = "*"
 google-cloud-secret-manager = "*"
+channels = "*"
+channels-redis = "*"
+dj-rest-auth = "*"
+django-allauth = "*"
+daphne = "*"
 
 [dev-packages]
 

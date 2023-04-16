@@ -79,11 +79,36 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
     'storages',
     'rest_framework',
     'corsheaders',
-    'smart_chat_backend.app.StudentManagementSystemConfig'
+    'smart_chat_backend.app.SmartChatSystemConfig',
+    'channels',
+
+    'users',
+    'chat',
+
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 ]
+
+SITE_ID = 1
+
+AUTH_USER_MODEL = 'users.ChatUser'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+        ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication', ]
+}
 
 MIDDLEWARE = [
     'smart_chat_backend.middlewares.cors.CustomCorsMiddleware',
@@ -115,7 +140,22 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
 WSGI_APPLICATION = 'smart_chat_backend.wsgi.application'
+ASGI_APPLICATION = 'smart_chat_backend.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 DATABASES = {
     'default': env.db()
@@ -170,6 +210,7 @@ GS_PROJECT_ID = 'vivid-ocean-377202'
 # GS_CREDENTIALS = service_account.Credentials.from_service_account_file('vivid-ocean-377202-ca62f814da33.json')
 
 APPENGINE_URL = env("APPENGINE_URL", default=None)
+
 if APPENGINE_URL:
     # Ensure a scheme is present in the URL before it's processed.
     if not urlparse(APPENGINE_URL).scheme:
@@ -182,3 +223,10 @@ else:
     ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOW_METHODS = [ 'DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT' ]
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "test.application.112233@gmail.com"
+ACCOUNT_EMAIL_VERIFICATION='none'
