@@ -1,7 +1,7 @@
 service: backend
 runtime: python311
 env: standard
-entrypoint: python manage.py migrate && daphne -p $PORT -b 0.0.0.0 smart_chat_backend.asgi:application
+entrypoint: daphne -p $PORT -b 0.0.0.0 smart_chat_backend.asgi:application
 
 
 env_variables:
