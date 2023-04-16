@@ -13,3 +13,6 @@ env_variables:
 runtime_config:
     operating_system: "ubuntu22"
     runtime_version: "3.11"
+
+beta_settings:
+  cloud_sql_instances: smart-chat-383601:us-west2:cc-pg-db-us-west-2=tcp:5432
