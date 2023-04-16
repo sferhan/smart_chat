@@ -1,15 +1,14 @@
 service: backend
 runtime: python311
-env: standard
+env: flex
 entrypoint: daphne -p $PORT -b 0.0.0.0 smart_chat_backend.asgi:application
 
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 1
 
 env_variables:
   APPENGINE_URL: backend-dot-smart-chat-383601.wl.r.appspot.com
-
-handlers:
-- url: /.*
-  script: auto
 
 runtime_config:
   python_version: 3
