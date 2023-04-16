@@ -5,7 +5,6 @@ entrypoint: daphne -p $PORT -b 0.0.0.0 smart_chat_backend.asgi:application
 
 
 env_variables:
-  # This setting is used in settings.py to configure your ALLOWED_HOSTS
   APPENGINE_URL: backend-dot-smart-chat-383601.wl.r.appspot.com
 
 handlers:
