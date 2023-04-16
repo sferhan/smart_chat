@@ -70,6 +70,8 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 
 ALLOWED_HOSTS = ['*']
 
+SECURE_SSL_REDIRECT = False
+
 # Application definition
 
 INSTALLED_APPS = [
