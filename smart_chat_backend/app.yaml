@@ -15,4 +15,4 @@ runtime_config:
     runtime_version: "3.11"
 
 beta_settings:
-  cloud_sql_instances: smart-chat-383601:us-west2:cc-pg-db-us-west-2=tcp:5432
+  cloud_sql_instances: smart-chat-383601:us-west2:cc-pg-db-us-west-2
