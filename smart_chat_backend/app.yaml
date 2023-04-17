@@ -10,7 +10,6 @@ env_variables:
   APPENGINE_URL: backend-dot-smart-chat-383601.wl.r.appspot.com
 
 runtime_config:
-    operating_system: "ubuntu22"
     runtime_version: "3.11"
 
 beta_settings:
