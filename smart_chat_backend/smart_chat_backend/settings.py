@@ -116,6 +116,7 @@ MIDDLEWARE = [
     'smart_chat_backend.middlewares.cors.CustomCorsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -231,3 +232,11 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "test.application.112233@gmail.com"
 ACCOUNT_EMAIL_VERIFICATION='none'
+
+if os.getenv('GAE_INSTANCE'):
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+else:
+    # Running on your local machine
+    SECURE_SSL_REDIRECT = False
+    SECURE_PROXY_SSL_HEADER = None

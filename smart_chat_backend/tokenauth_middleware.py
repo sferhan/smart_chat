@@ -3,6 +3,8 @@ from channels.db import database_sync_to_async
 from rest_framework.authtoken.models import Token
 from channels.middleware import BaseMiddleware
 
+import logging
+LOG = logging.getLogger(__name__)
 
 @database_sync_to_async
 def get_user(token_key):
@@ -20,6 +22,7 @@ class TokenAuthMiddleware(BaseMiddleware):
 
     async def __call__(self, scope, receive, send):
         headers = dict(scope['headers'])
+        LOG.info("Inside TokenAuthMiddleware")
         if b'authorization' in headers:
             token_name, token_key = headers[b'authorization'].decode().split()
             if token_name == 'Token':
