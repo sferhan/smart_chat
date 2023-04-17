@@ -3,6 +3,9 @@ runtime: python
 env: flex
 entrypoint: daphne -p $PORT -b 0.0.0.0 smart_chat_backend.asgi:application
 
+manual_scaling:
+  instances: 1
+
 automatic_scaling:
   min_num_instances: 1
   max_num_instances: 1
@@ -16,3 +19,6 @@ runtime_config:
 
 beta_settings:
   cloud_sql_instances: smart-chat-383601:us-west2:cc-pg-db-us-west-2
+
+network:
+  session_affinity: true
