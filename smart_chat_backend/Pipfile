@@ -19,6 +19,8 @@ channels-redis = "*"
 dj-rest-auth = "*"
 django-allauth = "*"
 daphne = "*"
+google-cloud-translate = "*"
+google-cloud-texttospeech = "*"
 
 [dev-packages]
 
