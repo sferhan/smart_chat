@@ -1,13 +1,14 @@
 import base64
 import json
 import secrets
-from datetime import datetime
-
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from django.core.files.base import ContentFile
 from .models import Message, Conversation
 from .serializers import MessageSerializer
+import logging
+LOG = logging.getLogger(__name__)
+
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -28,30 +29,15 @@ class ChatConsumer(WebsocketConsumer):
             self.room_group_name, self.channel_name
         )
 
-    # Receive message from WebSocket
-    def receive(self, text_data=None, bytes_data=None):
-        # parse the json data into dictionary object
-        text_data_json = json.loads(text_data)
-
-        # Send message to room group
-        chat_type = {"type": "chat_message"}
-        return_dict = {**chat_type, **text_data_json}
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            return_dict,
-        )
-
-    # Receive message from room group
-    def chat_message(self, event):
-        text_data_json = event.copy()
-        text_data_json.pop("type")
+    def _save_message(self, message_data):
+        sender = self.scope['user']
+        text_data_json = message_data.copy()
         message, attachment = (
             text_data_json["message"],
             text_data_json.get("attachment"),
         )
 
         conversation = Conversation.objects.get(id=self.room_name)
-        sender = self.scope['user']
 
         # Attachment
         if attachment:
@@ -72,7 +58,26 @@ class ChatConsumer(WebsocketConsumer):
                 text=message,
                 conversation_id=conversation,
             )
-        serializer = MessageSerializer(instance=_message)
+        return _message
+
+    # Receive message from WebSocket
+    def receive(self, text_data=None, bytes_data=None):
+        LOG.info(f"Received Web Socket Message: {text_data}")
+        # parse the json data into dictionary object
+        text_data_json = json.loads(text_data)
+
+        message = self._save_message(message_data=text_data_json)
+        # Send message to room group
+        chat_type = {"type": "chat_message"}
+        return_dict = {"message": message, **chat_type}
+        async_to_sync(self.channel_layer.group_send)(
+            self.room_group_name,
+            return_dict,
+        )
+
+    # Receive message from room group
+    def chat_message(self, event):
+        serializer = MessageSerializer(instance=event["message"])
         # Send message to WebSocket
         self.send(
             text_data=json.dumps(
