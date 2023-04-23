@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "3c0828f8-6497-45c4-a130-c9442b7b1c22",
+		"name": "Smart Chat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List All Users",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{smart_chat_server_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{server_url}}/users/",
+					"host": [
+						"{{server_url}}"
+					],
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Account",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"user12\",\n    \"password1\": \"abcd0000\",\n    \"password2\": \"abcd0000\",\n    \"email\": \"test12@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "{{server_url}}/auth/registration/",
+					"host": [
+						"{{server_url}}"
+					],
+					"path": [
+						"auth",
+						"registration",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Extract oAuth Token from response body",
+							"var jsonData = JSON.parse(responseBody);",
+							"var token = jsonData.key;",
+							"",
+							"// Set to an environment variable",
+							"postman.setEnvironmentVariable(\"smart_chat_server_token\", token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"user2\",\n    \"password\": \"abcd0000\"\n}"
+				},
+				"url": {
+					"raw": "{{server_url}}/auth/login/",
+					"host": [
+						"{{server_url}}"
+					],
+					"path": [
+						"auth",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Conversation by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{smart_chat_server_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{server_url}}/conversations/{{conversation_id}}/",
+					"host": [
+						"{{server_url}}"
+					],
+					"path": [
+						"conversations",
+						"{{conversation_id}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start Conversation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Extract oAuth Token from response body",
+							"var jsonData = JSON.parse(responseBody);",
+							"var id = jsonData.id;",
+							"",
+							"// Set to an environment variable",
+							"postman.setEnvironmentVariable(\"conversation_id\", id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token {{smart_chat_server_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"user2\"\n}"
+				},
+				"url": {
+					"raw": "{{server_url}}/conversations/start/",
+					"host": [
+						"{{server_url}}"
+					],
+					"path": [
+						"conversations",
+						"start",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all conversations of current user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{smart_chat_server_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{server_url}}/conversations/",
+					"host": [
+						"{{server_url}}"
+					],
+					"path": [
+						"conversations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Text to Speech",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{smart_chat_server_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text_to_speak\": \"Hey, how are you!\"\n}"
+				},
+				"url": {
+					"raw": "{{server_url}}/speak",
+					"host": [
+						"{{server_url}}"
+					],
+					"path": [
+						"speak"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Translate Text",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{smart_chat_server_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text_to_translate\": \"Hello World!\"\n}"
+				},
+				"url": {
+					"raw": "{{server_url}}/translate",
+					"host": [
+						"{{server_url}}"
+					],
+					"path": [
+						"translate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update profile",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{smart_chat_server_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"preferred_language\": \"fr\"\n}"
+				},
+				"url": {
+					"raw": "{{server_url}}/users/12/",
+					"host": [
+						"{{server_url}}"
+					],
+					"path": [
+						"users",
+						"12",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
