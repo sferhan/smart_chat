@@ -39,10 +39,10 @@ jobs:
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v1'
         with:
-          credentials_json: ${{secrets.GCP_SA_KEY}}
+          credentials_json: ${{secrets.NEW_GCP_SC_SEC}}
 
       - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@v1
         with:
-          project_id: smart-chat-383601
+          project_id: smart-chat-394120
           working_directory: ./smart_chat_backend

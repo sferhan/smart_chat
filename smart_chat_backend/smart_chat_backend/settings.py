@@ -53,13 +53,13 @@ else:
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://backend-dot-smart-chat-383601.wl.r.appspot.com",
-    "https://smart-chat-383601.wl.r.appspot.com"
+    "https://backend-dot-smart-chat-394120.wl.r.appspot.com",
+    "https://smart-chat-394120.wl.r.appspot.com"
 ]
 CORS_ORIGIN_WHITELIST = (
     "http://localhost:3000",
-    "https://backend-dot-smart-chat-383601.wl.r.appspot.com",
-    "https://smart-chat-383601.wl.r.appspot.com"
+    "https://backend-dot-smart-chat-394120.wl.r.appspot.com",
+    "https://smart-chat-394120.wl.r.appspot.com"
 )
 
 CORS_ALLOW_CREDENTIALS = True
