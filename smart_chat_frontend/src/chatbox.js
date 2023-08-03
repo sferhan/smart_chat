@@ -1,23 +1,16 @@
 import React from 'react';
 import styles from './styles/chatbox.module.css';
 import { useLocation } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import Paper from '@mui/material/Paper';
-import Fab from '@mui/material/Fab';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import Avatar from '@mui/material/Avatar';
-import MenuIcon from '@mui/icons-material/Menu';
-import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import MoreIcon from '@mui/icons-material/MoreVert'; 
 // import { makeStyles } from '@mui/styles';
@@ -86,9 +79,19 @@ const Chatbox=()=>{
             <div style={{width:"100%",height:"100%",background:"brown"}}>
                 
                     <Toolbar style={{background:"#1976d2"}}>
-                    <IconButton color="inherit" aria-label="open drawer">
-                        <MenuIcon />
-                    </IconButton>
+                        <List disablePadding style={{width:"90%"}}>
+                            <ListItem disablePadding>
+                                <ListItemButton disablePadding style={{padding:"0px",height:"auto"}}>
+                                <ListItemAvatar>
+                                <Avatar sx={{width:40, height:40}}>
+                                    <AccountCircle style={{fontSize:50}}/>
+                                </Avatar>
+                                </ListItemAvatar>
+                                <div style={{width:"20px"}}></div>
+                                <ListItemText primaryTypographyProps={{fontSize:"18px",color:"white"}} secondaryTypographyProps={{fontSize:"14px",color:"white"}} primary="Name" secondary="text" disablePadding/>
+                                </ListItemButton>
+                            </ListItem>
+                        </List>
                     {/* <StyledFab color="secondary" aria-label="add">
                         <AddIcon />
                     </StyledFab> */}
