@@ -1,0 +1,21 @@
+.parent{
+    
+}
+.main{
+    display: flex;
+    flex-direction:row;
+    width:100vw;
+    height:100vh;
+    /* background-color: brown; */
+}
+.divof_accountcircle{
+    display: flex;
+    flex-direction:row;
+
+}
+.accoutncircle{
+
+    font-size: 80px;
+    /* background-color: aquamarine; */
+    transform: scale(1.8)
+}
