@@ -3,7 +3,7 @@ name: Deploy to ECS
 on:
   push:
     branches:
-      - that-does-not-exist # skip all branches
+      - main
 
 jobs:
   deploy:
