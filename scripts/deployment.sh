@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # move to the backend directory
 cd ../smart_chat_backend
 

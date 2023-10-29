@@ -1,3 +1,4 @@
+#!/bin/bash
 
 if pip3 --version &> /dev/null; then
     echo "Pip3 is installed"
