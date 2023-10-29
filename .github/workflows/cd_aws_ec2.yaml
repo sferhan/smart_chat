@@ -15,7 +15,7 @@ jobs:
 
       - name: Save EC2 Private Key
         run: |
-          echo -n ${{secrets.SSH_PRIVATE_KEY}} > temp_key.pem && chmod 600 temp_key.pem
+          echo -n "${{secrets.SSH_PRIVATE_KEY}}" > temp_key.pem && chmod 600 temp_key.pem
 
       - name: Deploy to EC2
         run: |
