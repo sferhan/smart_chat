@@ -14,7 +14,7 @@ else:
 
 if pipenv --version &> /dev/null; then
     echo "Pipenv is installed"
-else
+else:
     echo "Installing Pipenv"
     pip3 install pipenv
 fi
