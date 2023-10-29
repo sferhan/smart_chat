@@ -3,7 +3,7 @@ name: Deploy to ECS
 on:
   push:
     branches:
-      - main  # Adjust the branch as needed
+      - that-does-not-exist # skip all branches
 
 jobs:
   deploy:
@@ -13,22 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Login to AWS ECR
-        uses: aws-actions/amazon-ecr-login@v1
-        with:
-          registry: <your-aws-account-id>.dkr.ecr.<your-region>.amazonaws.com
-
-      - name: Build and push Docker image
+      - name: Deploy to EC2
         run: |
-          docker build -t <your-ecr-repo-name>:latest .
-          docker tag <your-ecr-repo-name>:latest <your-aws-account-id>.dkr.ecr.<your-region>.amazonaws.com/<your-ecr-repo-name>:latest
-          docker push <your-aws-account-id>.dkr.ecr.<your-region>.amazonaws.com/<your-ecr-repo-name>:latest
-
-      - name: Deploy to ECS
-        run: |
-          aws ecs update-service --cluster <your-ecs-cluster-name> --service <your-ecs-service-name> --force-new-deployment
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: <your-aws-region>
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "cd /smart_chat/scripts && ./setup.sh && ./deployment.sh &"
 
