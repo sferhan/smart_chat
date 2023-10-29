@@ -130,3 +130,9 @@ dmypy.json
 node_modules
 
 venv
+
+# Database
+db.sqlite
+
+# Idea
+.idea

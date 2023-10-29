@@ -16,6 +16,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from urllib.parse import urlparse
 
+import dj_database_url
 import environ
 from corsheaders.defaults import default_headers
 # from google.oauth2 import service_account
@@ -48,7 +49,7 @@ elif os.environ.get("GOOGLE_CLOUD_PROJECT", None):
     name = f"projects/{project_id}/secrets/{settings_name}/versions/latest"
     payload = client.access_secret_version(name=name).payload.data.decode("UTF-8")
     env.read_env(io.StringIO(payload))
-else:
+elif not os.environ.get("AWS_ENVIRONMENT", None):
     raise Exception("No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found.")
 
 CORS_ALLOWED_ORIGINS = [
@@ -121,7 +122,8 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'smart_chat_backend.urls'
@@ -160,7 +162,7 @@ CHANNEL_LAYERS = {
 }
 
 DATABASES = {
-    'default': env.db()
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
 
 
@@ -233,7 +235,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "test.application.112233@gmail.com"
 ACCOUNT_EMAIL_VERIFICATION='none'
 
-if os.getenv('GAE_INSTANCE'):
+if os.getenv('GAE_INSTANCE') or os.environ.get("AWS_ENVIRONMENT", None):
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 else:

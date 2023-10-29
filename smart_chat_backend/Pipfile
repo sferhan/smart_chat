@@ -12,7 +12,7 @@ django-storages = "*"
 pillow = "*"
 gunicorn = "*"
 django-environ = "==0.9.0"
-psycopg2 = "*"
+psycopg2-binary = "*"
 google-cloud-secret-manager = "*"
 channels = "*"
 channels-redis = "*"
@@ -21,6 +21,7 @@ django-allauth = "*"
 daphne = "*"
 google-cloud-translate = "*"
 google-cloud-texttospeech = "*"
+dj-database-url = "*"
 
 [dev-packages]
 

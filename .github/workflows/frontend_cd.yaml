@@ -3,7 +3,7 @@ name: Deploy Frontend to App Engine
 on:
   push:
     branches:
-      - main
+      - that-does-not-exist # skip all branches
 
 jobs:
   deploy:
