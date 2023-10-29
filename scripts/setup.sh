@@ -2,19 +2,21 @@
 
 if pip3 --version &> /dev/null; then
     echo "Pip3 is installed"
-else:
+else :
     echo "Installing Python"
     sudo yum install -y python3 python3-pip
+fi
 
 if git --version &> /dev/null; then
     echo "Git is installed"
-else:
+else :
     echo "Installing Git"
     sudo yum install git --assumeyes
+fi
 
 if pipenv --version &> /dev/null; then
     echo "Pipenv is installed"
-else:
+else :
     echo "Installing Pipenv"
     pip3 install pipenv
 fi
