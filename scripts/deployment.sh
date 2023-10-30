@@ -1,6 +1,5 @@
 #!/bin/bash
 
-BACKEND_PORT=8000
 # move to the backend directory
 cd ../smart_chat_backend
 
@@ -10,9 +9,9 @@ pipenv install
 # migrate DB
 pipenv run python manage.py migrate
 
-kill $(lsof -t -i :$BACKEND_PORT)
+sudo kill $(lsof -t -i :8000)
 
 # start Daphne server
-nohup pipenv run daphne -b 0.0.0.0 -p $BACKEND_PORT smart_chat_backend.asgi:application & disown
+sudo systemctl restart smart_chat_backend.service
 
 echo "Deployment Completed"
