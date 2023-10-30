@@ -7,7 +7,7 @@ cd ../smart_chat_backend
 pipenv install
 
 # migrate DB
-python manage.py migrate
+pipenv run python manage.py migrate
 
 # start Daphne server
-daphne -b 0.0.0.0 -p 8000 smart_chat_backend.asgi:application
+pipenv run daphne -b 0.0.0.0 -p 8000 smart_chat_backend.asgi:application
